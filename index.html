@@ -58,7 +58,7 @@
   <input id="teamName1" placeholder="Enter Team Name" />
   <div id="options1" class="d-flex justify-content-around flex-wrap mt-3"></div>
   <div id="message1" class="message"></div>
-  <button id="nextBtn1" style="display:none;">Next ➡️</button>
+  <button id="nextBtn1" style="display:none;">Nex➡️</button>
 </div>
 
 <div id="leaderboard1" class="card" style="display:none;">
@@ -100,58 +100,58 @@
 
 <script>
 // ---------------------- ROUND 1 DATA ----------------------
-const q1=[
-  {A:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round1-batch2-images/adidas1.png",
-   B:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round1-batch2-images/adidas2.png", correct:"A"},
-  {A:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round1-batch2-images/chrome1.png",
-   B:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round1-batch2-images/chrome2.png", correct:"A"},
-  {A:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round1-batch2-images/drive1.png",
-   B:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round1-batch2-images/drive2.png", correct:"A"},
-  {A:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round1-batch2-images/ford1.png",
-   B:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round1-batch2-images/ford2.png", correct:"B"},
-  {A:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round1-batch2-images/intel1.png",
-   B:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round1-batch2-images/intel2.png", correct:"A"},
-  {A:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round1-batch2-images/java1.png",
-   B:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round1-batch2-images/java2.png", correct:"B"},
-  {A:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round1-batch2-images/mc1.png",
-   B:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round1-batch2-images/mc2.png", correct:"A"},
-  {A:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round1-batch2-images/paypal1.png",
-   B:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round1-batch2-images/paypal2.png", correct:"B"},
-  {A:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round1-batch2-images/shell1.png",
-   B:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round1-batch2-images/shell2.png", correct:"B"},
-  {A:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round1-batch2-images/tesla1.png",
-   B:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round1-batch2-images/tesla2.png", correct:"A"}
+const q1 = [
+  { A: "round1-batch2-images\\adidas1.png", B: "round1-batch2-images\\adidas2.png", correct: "A" },
+  { A: "round1-batch2-images\\chrome2.png", B: "round1-batch2-images\\chrome1.png", correct: "B" },
+  { A: "round1-batch2-images\\drive1.png", B: "round1-batch2-images\\drive2.png", correct: "A" },
+  { A: "round1-batch2-images\\ford2.png", B: "round1-batch2-images\\ford1.png", correct: "A" },
+  { A: "round1-batch2-images\\intel2.png", B: "round1-batch2-images\\intel1.png", correct: "B" },
+  { A: "round1-batch2-images\\java1.png", B: "round1-batch2-images\\java2.png", correct: "B" },
+  { A: "round1-batch2-images\\mc1.png", B: "round1-batch2-images\\mc2.png", correct: "A" },
+  { A: "round1-batch2-images\\paypal2.png", B: "round1-batch2-images\\paypal1.png", correct: "A" },
+  { A: "round1-batch2-images\\shell1.png", B: "round1-batch2-images\\shell2.png", correct: "B" },
+  { A: "round1-batch2-images\\tesla1.png", B: "round1-batch2-images\\tesla2.png", correct: "A" }
 ];
 
 // ---------------------- ROUND 2 DATA ----------------------
 const q2 = [
-  {img:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round2-batch2-images/img1.png", ans:"master card"},
-  {img:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round2-batch2-images/img2.png", ans:"skype"},
-  {img:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round2-batch2-images/img3.png", ans:"ubuntu"},
-  {img:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round2-batch2-images/img4.png", ans:"firefox"},
-  {img:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round2-batch2-images/img5.png", ans:"bank of baroda"},
-  {img:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round2-batch2-images/img6.png", ans:"hdfc bank"},
-  {img:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round2-batch2-images/img7.png", ans:"fevicol"},
-  {img:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round2-batch2-images/img8.png", ans:"mahendra"},
-  {img:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round2-batch2-images/img9.png", ans:"sbi"},
-  {img:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round2-batch2-images/img10.png", ans:"aadhar"},
-  {img:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round2-batch2-images/img11.png", ans:"xbox"},
-  {img:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round2-batch2-images/img12.png", ans:"under armour"},
-  {img:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round2-batch2-images/img13.png", ans:"toco bell"},
-  {img:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round2-batch2-images/img14.png", ans:"sound cloud"},
-  {img:"C:/Users/T.AAHELA PARVEEN/OneDrive/Desktop/LOGOLURE BATCH-2/round2-batch2-images/img15.png", ans:"tinder"}
+  { img: "round2-batch2-images\\img1.png", ans: "master card" },
+  { img: "round2-batch2-images\\img2.png", ans: "skype" },
+  { img: "round2-batch2-images\\img3.png", ans: "ubuntu" },
+  { img: "round2-batch2-images\\img4.png", ans: "firefox" },
+  { img: "round2-batch2-images\\img5.png", ans: "bank of baroda" },
+  { img: "round2-batch2-images\\img6.png", ans: "hdfc bank" },
+  { img: "round2-batch2-images\\img7.png", ans: "fevicol" },
+  { img: "round2-batch2-images\\img8.png", ans: "mahendra" },
+  { img: "round2-batch2-images\\img9.png", ans: "sbi" },
+  { img: "round2-batch2-images\\img10.png", ans: "aadhar" },
+  { img: "round2-batch2-images\\img11.png", ans: "xbox" },
+  { img: "round2-batch2-images\\img12.png", ans: "under armour" },
+  { img: "round2-batch2-images\\img13.png", ans: "toco bell" },
+  { img: "round2-batch2-images\\img14.png", ans: "sound cloud" },
+  { img: "round2-batch2-images\\img15.png", ans: "tinder" }
 ];
 
-// ---------------------- ROUND 1 FUNCTIONS ----------------------
+// ---------------------- ROUND 1 ----------------------
 let i1=0, timer1, teamScores1={};
 
 function nextQ1(){
   if(i1>=q1.length) return endR1();
   const q=q1[i1];
   document.getElementById("round1Num").textContent=i1+1;
-  document.getElementById("options1").innerHTML=`
-    <div><img src='${q.A}' class='preview'><br><button onclick='check1("A")'>Option A</button></div>
-    <div><img src='${q.B}' class='preview'><br><button onclick='check1("B")'>Option B</button></div>`;
+
+  // Fixed order for Round 1 options
+  document.getElementById("options1").innerHTML = `
+    <div>
+      <img src='${q.A}' class='preview'><br>
+      <button onclick='check1("A")'>Option A</button>
+    </div>
+    <div>
+      <img src='${q.B}' class='preview'><br>
+      <button onclick='check1("B")'>Option B</button>
+    </div>
+  `;
+
   document.getElementById("message1").textContent="";
   document.getElementById("nextBtn1").style.display="none";
   startTimer1();
@@ -187,28 +187,17 @@ function endR1(){
   clearInterval(timer1);
   const tbody=document.querySelector("#table1 tbody");
   tbody.innerHTML="";
-  
   const allTeams=Object.entries(teamScores1).sort((a,b)=>b[1]-a[1]);
-  
   allTeams.forEach(([team,score],i)=>{
     const status = score>=7 ? "✅ QUALIFIED" : "❌ NOT QUALIFIED";
-    tbody.innerHTML += `<tr>
-      <td>${i+1}</td>
-      <td>${team}</td>
-      <td>${score}</td>
-      <td>${status}</td>
-    </tr>`;
+    tbody.innerHTML += `<tr><td>${i+1}</td><td>${team}</td><td>${score}</td><td>${status}</td></tr>`;
   });
-
   document.getElementById("gameArea1").style.display="none";
   document.getElementById("leaderboard1").style.display="block";
-
-  if(allTeams.length>0 && allTeams[0][1]>=7){
-    showCelebration(`${allTeams[0][0]} QUALIFIED TO ROUND 2! 🎉`);
-  }
+  if(allTeams.length>0 && allTeams[0][1]>=7) showCelebration(`${allTeams[0][0]} QUALIFIED TO ROUND 2! 🎉`);
 }
 
-// ---------------------- ROUND 2 FUNCTIONS ----------------------
+// ---------------------- ROUND 2 ----------------------
 let i2=0, timer2, teamScores2={};
 
 function nextQ2(){
@@ -243,7 +232,7 @@ document.getElementById("submit2").onclick=()=>{
   const correct=q2[i2].ans.toLowerCase();
   const msg=document.getElementById("message2");
   if(ans===correct){teamScores2[team]++; msg.textContent="✅ Correct!"; msg.style.color="green";}
-  else {msg.textContent=`❌ Wrong! (Ans: ${correct})`; msg.style.color="red";}
+  else {msg.textContent="❌ Wrong!"; msg.style.color="red";}
   document.getElementById("score2").textContent=teamScores2[team];
   document.getElementById("nextBtn2").style.display="block";
 };
