@@ -1,307 +1,356 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>✨ LOGOLURE – Batch 2</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
-  body {font-family:"Poppins",sans-serif;background:linear-gradient(120deg,#1e90ff,#00bfff);color:#052c46;margin:0;overflow-x:hidden;}
-  #welcomeScreen{position:fixed;top:0;left:0;width:100%;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#001f3f,#007bff,#00bfff);background-size:300% 300%;animation:gradientMove 8s ease infinite;z-index:10;}
-  @keyframes gradientMove{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
-  #welcomeScreen h1{font-size:60px;font-weight:800;color:#fff;text-shadow:0 0 20px rgba(255,255,255,0.8);margin-top:20px;}
-  #enterBtn{margin-top:40px;padding:12px 30px;font-size:18px;border:none;border-radius:30px;background:#fff;color:#007bff;font-weight:700;transition:all .4s ease;box-shadow:0 4px 15px rgba(0,0,0,0.2);}
-  #enterBtn:hover{transform:scale(1.05);background:#007bff;color:#fff;}
-  .card{background:rgba(255,255,255,0.95);border-radius:18px;padding:26px;box-shadow:0 10px 25px rgba(0,0,0,0.18);text-align:center;width:92%;max-width:760px;margin:40px auto;}
-  button{padding:10px 18px;border:none;border-radius:10px;background:#007bff;color:white;font-weight:600;cursor:pointer;}
-  button:hover{filter:brightness(.95);}
-  input[type=text]{padding:10px 12px;border-radius:10px;border:2px solid #cde0ff;background:white;font-size:15px;width:70%;max-width:320px;outline:none;margin-top:10px;}
-  .preview{width:100%;max-width:300px;height:200px;border-radius:12px;object-fit:contain;border:3px solid #fff;box-shadow:0 6px 20px rgba(0,0,0,0.12);background:#f9fcff;}
-  .stats-bar{display:flex;justify-content:space-around;align-items:center;background:rgba(255,255,255,0.95);border-radius:10px;padding:8px 10px;margin-bottom:12px;}
-  .stat{font-weight:600;padding:6px 12px;}
-  .timer{color:#e53935;font-weight:700;}
-  .message{margin-top:10px;font-weight:700;min-height:20px;}
-  .fadeOut{animation:fadeOut 1s forwards;}
-  @keyframes fadeOut{from{opacity:1;}to{opacity:0;visibility:hidden;}}
-  .fadeIn{animation:fadeIn 1s forwards;}
-  @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-  .winner{background-color:gold !important; font-weight:700;}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>✨ LOGOLURE – Batch 2</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {font-family:"Poppins",sans-serif;background:linear-gradient(120deg,#1e90ff,#00bfff);color:#052c46;margin:0;overflow-x:hidden;}
+    #welcomeScreen{position:fixed;top:0;left:0;width:100%;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#001f3f,#007bff,#00bfff);background-size:300% 300%;animation:gradientMove 8s ease infinite;z-index:10;}
+    @keyframes gradientMove{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+    #welcomeScreen h1{font-size:60px;font-weight:800;color:#fff;text-shadow:0 0 20px rgba(255,255,255,0.8);margin-top:20px;}
+    #enterBtn{margin-top:40px;padding:12px 30px;font-size:18px;border:none;border-radius:30px;background:#fff;color:#007bff;font-weight:700;transition:all .4s ease;box-shadow:0 4px 15px rgba(0,0,0,0.2);}
+    #enterBtn:hover{transform:scale(1.05);background:#007bff;color:#fff;}
+    .card{background:rgba(255,255,255,0.95);border-radius:18px;padding:26px;box-shadow:0 10px 25px rgba(0,0,0,0.18);text-align:center;width:92%;max-width:760px;margin:40px auto;}
+    button{padding:10px 18px;border:none;border-radius:10px;background:#007bff;color:white;font-weight:600;cursor:pointer;}
+    button:hover{filter:brightness(.95);}
+    input[type=text]{padding:10px 12px;border-radius:10px;border:2px solid #cde0ff;background:white;font-size:15px;width:70%;max-width:320px;outline:none;margin-top:10px;}
+    .preview{width:100%;max-width:300px;height:200px;border-radius:12px;object-fit:contain;border:3px solid #fff;box-shadow:0 6px 20px rgba(0,0,0,0.12);background:#f9fcff;}
+    .stats-bar{display:flex;justify-content:space-around;align-items:center;background:rgba(255,255,255,0.95);border-radius:10px;padding:8px 10px;margin-bottom:12px;}
+    .stat{font-weight:600;padding:6px 12px;}
+    .timer{color:#e53935;font-weight:700;}
+    .message{margin-top:10px;font-weight:700;min-height:20px;}
+    .fadeOut{animation:fadeOut 1s forwards;}
+    @keyframes fadeOut{from{opacity:1;}to{opacity:0;visibility:hidden;}}
+    .fadeIn{animation:fadeIn 1s forwards;}
+    @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+    .winner{background-color:gold !important; font-weight:700;}
 
-  /* Celebration Overlay Styles */
-  #celebrationOverlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(30,144,255,0.85);display:none;z-index:9999;overflow:hidden;}
-  .celebrationText{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:60px;font-weight:900;color:gold;text-shadow:2px 2px 15px #fff;animation:pulse 1s infinite alternate;text-align:center;}
-  .confetti{position:absolute;width:10px;height:10px;border-radius:50%;opacity:.9;top:-10px;animation:fall linear forwards;}
-  @keyframes pulse{from{transform:translate(-50%,-50%) scale(1);}to{transform:translate(-50%,-50%) scale(1.2);}}
-  @keyframes fall{0%{transform:translateY(0) rotate(0deg);opacity:1;}100%{transform:translateY(110vh) rotate(360deg);opacity:0;}}
-</style>
+    #celebrationOverlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(30,144,255,0.85);display:none;z-index:9999;overflow:hidden;}
+    .celebrationText{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:60px;font-weight:900;color:gold;text-shadow:2px 2px 15px #fff;animation:pulse 1s infinite alternate;text-align:center;}
+    .confetti{position:absolute;width:10px;height:10px;border-radius:50%;opacity:.9;top:-10px;animation:fall linear forwards;}
+    @keyframes pulse{from{transform:translate(-50%,-50%) scale(1);}to{transform:translate(-50%,-50%) scale(1.2);}}
+    @keyframes fall{0%{transform:translateY(0) rotate(0deg);opacity:1;}100%{transform:translateY(110vh) rotate(360deg);opacity:0;}}
+  </style>
 </head>
 <body>
 
-<div id="welcomeScreen">
-  <h1>Welcome to <span style="color:#ffeb3b;">LOGOLURE</span> – Batch 2</h1>
-  <p style="color:#fff;font-size:18px;">Decode the world's most iconic logos 🔥</p>
-  <button id="enterBtn">Enter the Arena</button>
-</div>
-
-<div id="instructionsScreen" class="card" style="display:none;">
-  <h2>🧾 Instructions</h2>
-  <ul style="text-align:left;font-size:15px;">
-    <li>Round 1: Choose the correct logo (10 questions).</li>
-    <li>Round 2: Type the brand name (15 questions).</li>
-    <li>Enter team name before answering.</li>
-    <li>Top N teams from Round 1 qualify for Round 2.</li>
-  </ul>
-  <button id="startRound1">Start Round 1</button>
-</div>
-
-<div id="gameArea1" class="card" style="display:none;">
-  <div class="stats-bar">
-    <div class="stat">Q: <span id="round1Num">0</span>/10</div>
-    <div class="stat">Score: <span id="score1">0</span></div>
-    <div class="stat timer">⏱ <span id="timeLeft1">30</span>s</div>
+  <!-- Welcome Screen -->
+  <div id="welcomeScreen">
+    <h1>Welcome to <span style="color:#ffeb3b;">LOGOLURE</span> – Batch 2</h1>
+    <p style="color:#fff;font-size:18px;">Decode the world's most iconic logos 🔥</p>
+    <button id="enterBtn">Enter the Arena</button>
   </div>
-  <input id="teamName1" placeholder="Enter Team Name" />
-  <div id="options1" class="d-flex justify-content-around flex-wrap mt-3"></div>
-  <div id="message1" class="message"></div>
-  <button id="nextBtn1" style="display:none;">Next ➡</button>
-</div>
 
-<div id="leaderboard1" class="card" style="display:none;">
-  <h2>🏁 Round 1 Leaderboard</h2>
-  <table class="table table-striped" id="table1">
-    <thead><tr><th>Rank</th><th>Team</th><th>Score</th></tr></thead>
-    <tbody></tbody>
-  </table>
-  <button id="downloadR1">⬇ Download Round 1 Results</button>
-  <button id="startRound2">Proceed to Round 2</button>
-</div>
-
-<div id="gameArea2" class="card" style="display:none;">
-  <div class="stats-bar">
-    <div class="stat">Q: <span id="round2Num">0</span>/15</div>
-    <div class="stat">Score: <span id="score2">0</span></div>
-    <div class="stat timer">⏱ <span id="timeLeft2">30</span>s</div>
+  <!-- Instructions -->
+  <div id="instructionsScreen" class="card" style="display:none;">
+    <h2>🧾 Instructions</h2>
+    <ul style="text-align:left;font-size:15px;">
+      <li>Round 1: Choose the correct logo (10 questions).</li>
+      <li>Round 2: Type the brand name (15 questions).</li>
+      <li>Enter team name before answering.</li>
+      <li>Top N teams from Round 1 qualify for Round 2.</li>
+    </ul>
+    <button id="startRound1">Start Round 1</button>
   </div>
-  <input id="teamName2" placeholder="Enter Team Name" />
-  <img id="logo2" class="preview" src="" alt="Logo"><br>
-  <input id="answer2" placeholder="Type your answer" /><br>
-  <button id="submit2">Submit</button>
-  <div id="message2" class="message"></div>
-  <button id="nextBtn2" style="display:none;">Next ➡</button>
-</div>
 
-<div id="leaderboard2" class="card" style="display:none;">
-  <h2>🏁 Round 2 Leaderboard</h2>
-  <table class="table table-striped" id="table2">
-    <thead><tr><th>Rank</th><th>Team</th><th>Score</th></tr></thead>
-    <tbody></tbody>
-  </table>
-  <button id="downloadR2">⬇ Download Round 2 Results</button>
-</div>
-
-<!-- Celebration Overlay -->
-<div id="celebrationOverlay">
-  <div class="celebrationText"></div>
-</div>
-
-<script>
-// ---------------------- WELCOME SCREEN ----------------------
-document.getElementById("enterBtn").onclick = () => {
-  document.getElementById("welcomeScreen").classList.add("fadeOut");
-  setTimeout(() => {
-    document.getElementById("welcomeScreen").style.display = "none";
-    document.getElementById("instructionsScreen").style.display = "block";
-    document.getElementById("instructionsScreen").classList.add("fadeIn");
-  }, 1000);
-};
-
-// ---------------------- ROUND 1 DATA ----------------------
-const q1 = [
-  { A: "round1-batch2-images/adidas1.png", B: "round1-batch2-images/adidas2.png", correct: "B" },
-  { A: "round1-batch2-images/chrome2.png", B: "round1-batch2-images/chrome1.png", correct: "A" },
-  { A: "round1-batch2-images/drive2.png", B: "round1-batch2-images/drive1.png", correct: "B" },
-  { A: "round1-batch2-images/ford2.png", B: "round1-batch2-images/ford1.png", correct: "A" },
-  { A: "round1-batch2-images/intel2.png", B: "round1-batch2-images/intel1.png", correct: "B" },
-  { A: "round1-batch2-images/java1.png", B: "round1-batch2-images/java2.png", correct: "B" },
-  { A: "round1-batch2-images/mc1.png", B: "round1-batch2-images/mc2.png", correct: "A" },
-  { A: "round1-batch2-images/paypal1.png", B: "round1-batch2-images/paypal2.png", correct: "B" },
-  { A: "round1-batch2-images/shell1.png", B: "round1-batch2-images/shell2.png", correct: "A" },
-  { A: "round1-batch2-images/tesla1.png", B: "round1-batch2-images/tesla2.png", correct: "A" }
-];
-
-// ---------------------- ROUND 2 DATA ----------------------
-const q2 = [
-  { img: "round2-batch2-images/img1.png", ans: "master card" },
-  { img: "round2-batch2-images/img2.png", ans: "skype" },
-  { img: "round2-batch2-images/img3.png", ans: "ubuntu" },
-  { img: "round2-batch2-images/img4.png", ans: "firefox" },
-  { img: "round2-batch2-images/img5.png", ans: "walmart" },
-  { img: "round2-batch2-images/img6.png", ans: "vimeo" },
-  { img: "round2-batch2-images/img7.png", ans: "fevicol" },
-  { img: "round2-batch2-images/img8.png", ans: "mahendra" },
-  { img: "round2-batch2-images/img9.png", ans: "hilton" },
-  { img: "round2-batch2-images/img10.png", ans: "aadhar" },
-  { img: "round2-batch2-images/img11.png", ans: "xbox" },
-  { img: "round2-batch2-images/img12.png", ans: "under armour" },
-  { img: "round2-batch2-images/img13.png", ans: "toco bell" },
-  { img: "round2-batch2-images/img14.png", ans: "sound cloud" },
-  { img: "round2-batch2-images/img15.png", ans: "tinder" }
-];
-
-// ---------------------- ROUND 1 ----------------------
-let i1=0, timer1, teamScores1={};
-
-document.getElementById("startRound1").onclick = () => {
-  document.getElementById("instructionsScreen").style.display="none";
-  document.getElementById("gameArea1").style.display="block";
-  nextQ1();
-};
-
-function nextQ1(){
-  if(i1>=q1.length) return endR1();
-  const q=q1[i1];
-  document.getElementById("round1Num").textContent=i1+1;
-  document.getElementById("options1").innerHTML = `
-    <div>
-      <img src='${q.A}' class='preview'><br>
-      <button onclick='check1("A")'>Option A</button>
+  <!-- Round 1 Game Area -->
+  <div id="gameArea1" class="card" style="display:none;">
+    <div class="stats-bar">
+      <div class="stat">Q: <span id="round1Num">0</span>/10</div>
+      <div class="stat">Score: <span id="score1">0</span></div>
+      <div class="stat timer">⏱ <span id="timeLeft1">30</span>s</div>
     </div>
-    <div>
-      <img src='${q.B}' class='preview'><br>
-      <button onclick='check1("B")'>Option B</button>
-    </div>`;
-  document.getElementById("message1").textContent="";
-  document.getElementById("nextBtn1").style.display="none";
-  startTimer1();
-}
+    <input id="teamName1" placeholder="Enter Team Name" />
+    <div id="options1" class="d-flex justify-content-around flex-wrap mt-3"></div>
+    <div id="message1" class="message"></div>
+    <button id="nextBtn1" style="display:none;">Next ➡</button>
+  </div>
 
-function startTimer1(){
-  let t=30;
-  document.getElementById("timeLeft1").textContent=t;
-  clearInterval(timer1);
-  timer1=setInterval(()=>{
-    t--;
-    document.getElementById("timeLeft1").textContent=t;
-    if(t<=0){clearInterval(timer1);i1++;nextQ1();}
-  },1000);
-}
+  <!-- Round 1 Leaderboard -->
+  <div id="leaderboard1" class="card" style="display:none;">
+    <h2>🏁 Round 1 Leaderboard</h2>
+    <table class="table table-striped" id="table1">
+      <thead><tr><th>Rank</th><th>Team</th><th>Score</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <button id="downloadR1">⬇ Download Round 1 Results</button>
+    <button id="startRound2">Proceed to Round 2</button>
+  </div>
 
-function check1(sel){
-  clearInterval(timer1);
-  const team=document.getElementById("teamName1").value.trim();
-  if(!team) return alert("Enter team name first!");
-  if(!teamScores1[team]) teamScores1[team]=0;
-  const q=q1[i1];
-  const msg=document.getElementById("message1");
-  if(sel===q.correct){teamScores1[team]++; msg.textContent="✅ Correct!"; msg.style.color="green";}
-  else {msg.textContent="❌ Wrong!"; msg.style.color="red";}
-  document.getElementById("score1").textContent=teamScores1[team];
-  document.getElementById("nextBtn1").style.display="block";
-}
+  <!-- Round 2 Game Area -->
+  <div id="gameArea2" class="card" style="display:none;">
+    <div class="stats-bar">
+      <div class="stat">Q: <span id="round2Num">0</span>/15</div>
+      <div class="stat">Score: <span id="score2">0</span></div>
+      <div class="stat timer">⏱ <span id="timeLeft2">30</span>s</div>
+    </div>
+    <input id="teamName2" placeholder="Enter Team Name" />
+    <img id="logo2" class="preview" src="" alt="Logo"><br>
+    <input id="answer2" placeholder="Type your answer" /><br>
+    <button id="submit2">Submit</button>
+    <div id="message2" class="message"></div>
+    <button id="nextBtn2" style="display:none;">Next ➡</button>
+  </div>
 
-document.getElementById("nextBtn1").onclick=()=>{i1++; nextQ1();};
+  <!-- Round 2 Leaderboard -->
+  <div id="leaderboard2" class="card" style="display:none;">
+    <h2>🏁 Round 2 Leaderboard</h2>
+    <table class="table table-striped" id="table2">
+      <thead><tr><th>Rank</th><th>Team</th><th>Score</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <button id="downloadR2">⬇ Download Round 2 Results</button>
+  </div>
 
-function endR1(){
-  clearInterval(timer1);
-  const tbody=document.querySelector("#table1 tbody");
-  tbody.innerHTML="";
-  const allTeams=Object.entries(teamScores1).sort((a,b)=>b[1]-a[1]);
-  allTeams.forEach(([team,score],i)=>{
-    tbody.innerHTML+=`<tr><td>${i+1}</td><td>${team}</td><td>${score}</td></tr>`;
-  });
-  document.getElementById("gameArea1").style.display="none";
-  document.getElementById("leaderboard1").style.display="block";
-}
+  <!-- Celebration Overlay -->
+  <div id="celebrationOverlay">
+    <div class="celebrationText"></div>
+  </div>
 
-// ---------------------- ROUND 2 ----------------------
-let i2=0, timer2, teamScores2={};
+  <script>
+    // ---------------------- WELCOME SCREEN ----------------------
+    document.getElementById("enterBtn").onclick = () => {
+      document.getElementById("welcomeScreen").classList.add("fadeOut");
+      setTimeout(() => {
+        document.getElementById("welcomeScreen").style.display = "none";
+        document.getElementById("instructionsScreen").style.display = "block";
+        document.getElementById("instructionsScreen").classList.add("fadeIn");
+      }, 1000);
+    };
 
-document.getElementById("startRound2").onclick=()=>{
-  document.getElementById("leaderboard1").style.display="none";
-  document.getElementById("gameArea2").style.display="block";
-  nextQ2();
-};
+    // ---------------------- ROUND 1 DATA ----------------------
+    const q1 = [
+      { A: "round1-batch2-images/adidas1.png", B: "round1-batch2-images/adidas2.png", correct: "B" },
+      { A: "round1-batch2-images/chrome2.png", B: "round1-batch2-images/chrome1.png", correct: "A" },
+      { A: "round1-batch2-images/drive2.png", B: "round1-batch2-images/drive1.png", correct: "B" },
+      { A: "round1-batch2-images/ford2.png", B: "round1-batch2-images/ford1.png", correct: "A" },
+      { A: "round1-batch2-images/intel2.png", B: "round1-batch2-images/intel1.png", correct: "B" },
+      { A: "round1-batch2-images/java1.png", B: "round1-batch2-images/java2.png", correct: "B" },
+      { A: "round1-batch2-images/mc1.png", B: "round1-batch2-images/mc2.png", correct: "A" },
+      { A: "round1-batch2-images/paypal1.png", B: "round1-batch2-images/paypal2.png", correct: "B" },
+      { A: "round1-batch2-images/shell1.png", B: "round1-batch2-images/shell2.png", correct: "A" },
+      { A: "round1-batch2-images/tesla1.png", B: "round1-batch2-images/tesla2.png", correct: "A" }
+    ];
 
-function nextQ2(){
-  if(i2>=q2.length) return endR2();
-  const q=q2[i2];
-  document.getElementById("round2Num").textContent=i2+1;
-  document.getElementById("logo2").src=q.img;
-  document.getElementById("answer2").value="";
-  document.getElementById("message2").textContent="";
-  document.getElementById("nextBtn2").style.display="none";
-  startTimer2();
-}
+    // ---------------------- ROUND 2 DATA ----------------------
+    const q2 = [
+      { img: "round2-batch2-images/img1.png", ans: "master card" },
+      { img: "round2-batch2-images/img2.png", ans: "skype" },
+      { img: "round2-batch2-images/img3.png", ans: "ubuntu" },
+      { img: "round2-batch2-images/img4.png", ans: "firefox" },
+      { img: "round2-batch2-images/img5.png", ans: "walmart" },
+      { img: "round2-batch2-images/img6.png", ans: "vimeo" },
+      { img: "round2-batch2-images/img7.png", ans: "fevicol" },
+      { img: "round2-batch2-images/img8.png", ans: "mahendra" },
+      { img: "round2-batch2-images/img9.png", ans: "hilton" },
+      { img: "round2-batch2-images/img10.png", ans: "aadhar" },
+      { img: "round2-batch2-images/img11.png", ans: "xbox" },
+      { img: "round2-batch2-images/img12.png", ans: "under armour" },
+      { img: "round2-batch2-images/img13.png", ans: "toco bell" },
+      { img: "round2-batch2-images/img14.png", ans: "sound cloud" },
+      { img: "round2-batch2-images/img15.png", ans: "tinder" }
+    ];
 
-function startTimer2(){
-  let t=30;
-  document.getElementById("timeLeft2").textContent=t;
-  clearInterval(timer2);
-  timer2=setInterval(()=>{
-    t--;
-    document.getElementById("timeLeft2").textContent=t;
-    if(t<=0){clearInterval(timer2);i2++;nextQ2();}
-  },1000);
-}
+    // ---------------------- ROUND 1 ----------------------
+    let i1 = 0;
+    let t1 = 30;
+    let timer1Active = false;
+    let teamScores1 = {};
 
-document.getElementById("submit2").onclick=()=>{
-  clearInterval(timer2);
-  const team=document.getElementById("teamName2").value.trim();
-  const ans=document.getElementById("answer2").value.trim().toLowerCase();
-  if(!team) return alert("Enter team name first!");
-  if(!ans) return alert("Enter your answer!");
-  if(!teamScores2[team]) teamScores2[team]=0;
-  const correct=q2[i2].ans.toLowerCase();
-  const msg=document.getElementById("message2");
-  if(ans===correct){teamScores2[team]++; msg.textContent="✅ Correct!"; msg.style.color="green";}
-  else {msg.textContent="❌ Wrong!"; msg.style.color="red";}
-  document.getElementById("score2").textContent=teamScores2[team];
-  document.getElementById("nextBtn2").style.display="block";
-};
+    document.getElementById("startRound1").onclick = () => {
+      document.getElementById("instructionsScreen").style.display = "none";
+      document.getElementById("gameArea1").style.display = "block";
+      i1 = 0;
+      nextQ1();
+      if (!timer1Active) {
+        startGlobalTimer1();
+      }
+    };
 
-document.getElementById("nextBtn2").onclick=()=>{i2++; nextQ2();};
+    function nextQ1() {
+      if (i1 >= q1.length) {
+        endR1();
+        return;
+      }
+      const q = q1[i1];
+      document.getElementById("round1Num").textContent = i1 + 1;
+      document.getElementById("options1").innerHTML = `
+        <div>
+          <img src='${q.A}' class='preview'><br>
+          <button onclick='check1("A")'>Option A</button>
+        </div>
+        <div>
+          <img src='${q.B}' class='preview'><br>
+          <button onclick='check1("B")'>Option B</button>
+        </div>`;
+      document.getElementById("message1").textContent = "";
+      document.getElementById("nextBtn1").style.display = "none";
+    }
 
-// ---------------------- ROUND 2 END ----------------------
-function endR2(){
-  clearInterval(timer2);
-  const tbody=document.querySelector("#table2 tbody");
-  tbody.innerHTML="";
-  const sortedAll=Object.entries(teamScores2).sort((a,b)=>b[1]-a[1]);
-  sortedAll.forEach(([t,s],i)=>{
-    const isWinner = s > 0 && i===0;
-    tbody.innerHTML+=`<tr class='${isWinner?"winner":""}'><td>${i+1}</td><td>${t}</td><td>${s}</td></tr>`;
-  });
-  document.getElementById("gameArea2").style.display="none";
-  document.getElementById("leaderboard2").style.display="block";
+    function startGlobalTimer1() {
+      timer1Active = true;
+      setInterval(() => {
+        t1--;
+        if (t1 <= 0) {
+          t1 = 30;
+          i1++;
+          nextQ1();
+        }
+        document.getElementById("timeLeft1").textContent = t1;
+      }, 1000);
+    }
 
-  // Show celebration overlay instead of alert
-  const winners = sortedAll.filter(([t,s])=>s>0);
-  if(winners.length>0){
-    const topTeam = winners[0];
-    showCelebration(`🎉 CONGRATULATIONS ${topTeam[0]} ARE THE WINNERS! 🏆`);
-  }
-}
+    function check1(sel) {
+      const team = document.getElementById("teamName1").value.trim();
+      if (!team) {
+        return alert("Enter team name first!");
+      }
+      if (!teamScores1[team]) {
+        teamScores1[team] = 0;
+      }
+      const q = q1[i1];
+      const msg = document.getElementById("message1");
+      if (sel === q.correct) {
+        teamScores1[team]++;
+        msg.textContent = "✅ Correct!";
+        msg.style.color = "green";
+      } else {
+        msg.textContent = "❌ Wrong!";
+        msg.style.color = "red";
+      }
+      document.getElementById("score1").textContent = teamScores1[team];
+      document.getElementById("nextBtn1").style.display = "block";
+    }
 
-// ---------------------- Celebration Overlay ----------------------
-function showCelebration(message){
-  const overlay=document.getElementById("celebrationOverlay");
-  overlay.style.display="block";
-  overlay.querySelector(".celebrationText").textContent=message;
+    document.getElementById("nextBtn1").onclick = () => {
+      i1++;
+      t1 = 30;
+      nextQ1();
+    };
 
-  // Add confetti
-  for(let i=0;i<100;i++){
-    const conf=document.createElement("div");
-    conf.className="confetti";
-    conf.style.width=conf.style.height=(5+Math.random()*10)+"px";
-    conf.style.left=Math.random()*100+"vw";
-    conf.style.backgroundColor=`hsl(${Math.random()*360},100%,50%)`;
-    conf.style.animationDuration=`${2+Math.random()*3}s`;
-    overlay.appendChild(conf);
-    conf.addEventListener("animationend",()=>conf.remove());
-  }
+    function endR1() {
+      const tbody = document.querySelector("#table1 tbody");
+      tbody.innerHTML = "";
+      const allTeams = Object.entries(teamScores1).sort((a, b) => b[1] - a[1]);
+      allTeams.forEach(([team, score], i) => {
+        tbody.innerHTML += `<tr><td>${i + 1}</td><td>${team}</td><td>${score}</td></tr>`;
+      });
+      document.getElementById("gameArea1").style.display = "none";
+      document.getElementById("leaderboard1").style.display = "block";
+    }
 
-  setTimeout(()=>{overlay.style.display="none";overlay.querySelectorAll(".confetti").forEach(c=>c.remove());},5000);
-}
-</script>
+    // ---------------------- ROUND 2 ----------------------
+    let i2 = 0;
+    let t2 = 30;
+    let timer2Active = false;
+    let teamScores2 = {};
+
+    document.getElementById("startRound2").onclick = () => {
+      document.getElementById("leaderboard1").style.display = "none";
+      document.getElementById("gameArea2").style.display = "block";
+      i2 = 0;
+      nextQ2();
+      if (!timer2Active) {
+        startGlobalTimer2();
+      }
+    };
+
+    function nextQ2() {
+      if (i2 >= q2.length) {
+        endR2();
+        return;
+      }
+      const q = q2[i2];
+      document.getElementById("round2Num").textContent = i2 + 1;
+      document.getElementById("logo2").src = q.img;
+      document.getElementById("answer2").value = "";
+      document.getElementById("message2").textContent = "";
+      document.getElementById("nextBtn2").style.display = "none";
+    }
+
+    function startGlobalTimer2() {
+      timer2Active = true;
+      setInterval(() => {
+        t2--;
+        if (t2 <= 0) {
+          t2 = 30;
+          i2++;
+          nextQ2();
+        }
+        document.getElementById("timeLeft2").textContent = t2;
+      }, 1000);
+    }
+
+    document.getElementById("submit2").onclick = () => {
+      const team = document.getElementById("teamName2").value.trim();
+      if (!team) {
+        return alert("Enter team name first!");
+      }
+      if (!teamScores2[team]) {
+        teamScores2[team] = 0;
+      }
+      const ans = document.getElementById("answer2").value.trim().toLowerCase();
+      const correct = q2[i2].ans.toLowerCase();
+      const msg = document.getElementById("message2");
+      if (ans === correct) {
+        teamScores2[team]++;
+        msg.textContent = "✅ Correct!";
+        msg.style.color = "green";
+      } else {
+        msg.textContent = "❌ Wrong!";
+        msg.style.color = "red";
+      }
+      document.getElementById("score2").textContent = teamScores2[team];
+      document.getElementById("nextBtn2").style.display = "block";
+    };
+
+    document.getElementById("nextBtn2").onclick = () => {
+      i2++;
+      t2 = 30;
+      nextQ2();
+    };
+
+    function endR2() {
+      const tbody = document.querySelector("#table2 tbody");
+      tbody.innerHTML = "";
+      const sortedAll = Object.entries(teamScores2).sort((a, b) => b[1] - a[1]);
+      sortedAll.forEach(([t, s], i) => {
+        const isWinner = s > 0 && i === 0;
+        tbody.innerHTML += `<tr class='${isWinner ? "winner" : ""}'><td>${i + 1}</td><td>${t}</td><td>${s}</td></tr>`;
+      });
+      document.getElementById("gameArea2").style.display = "none";
+      document.getElementById("leaderboard2").style.display = "block";
+
+      const winners = sortedAll.filter(([t, s]) => s > 0);
+      if (winners.length > 0) {
+        const topTeam = winners[0];
+        showCelebration(`🎉 CONGRATULATIONS ${topTeam[0]} ARE THE WINNERS! 🏆`);
+      }
+    }
+
+    function showCelebration(message) {
+      const overlay = document.getElementById("celebrationOverlay");
+      overlay.style.display = "block";
+      overlay.querySelector(".celebrationText").textContent = message;
+
+      for (let i = 0; i < 100; i++) {
+        const conf = document.createElement("div");
+        conf.className = "confetti";
+        conf.style.width = conf.style.height = (5 + Math.random() * 10) + "px";
+        conf.style.left = Math.random() * 100 + "vw";
+        conf.style.backgroundColor = `hsl(${Math.random() * 360},100%,50%)`;
+        conf.style.animationDuration = `${2 + Math.random() * 3}s`;
+        overlay.appendChild(conf);
+        conf.addEventListener("animationend", () => conf.remove());
+      }
+
+      setTimeout(() => {
+        overlay.style.display = "none";
+        overlay.querySelectorAll(".confetti").forEach(c => c.remove());
+      }, 5000);
+    }
+  </script>
 </body>
 </html>
