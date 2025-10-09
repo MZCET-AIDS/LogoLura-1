@@ -23,10 +23,15 @@
   .message{margin-top:10px;font-weight:700;min-height:20px;}
   .fadeOut{animation:fadeOut 1s forwards;}
   @keyframes fadeOut{from{opacity:1;}to{opacity:0;visibility:hidden;}}
+  .fadeIn{animation:fadeIn 1s forwards;}
+  @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+  .winner{background-color:gold !important; font-weight:700;}
+
+  /* Celebration Overlay Styles */
   #celebrationOverlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(30,144,255,0.85);display:none;z-index:9999;overflow:hidden;}
   .celebrationText{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:60px;font-weight:900;color:gold;text-shadow:2px 2px 15px #fff;animation:pulse 1s infinite alternate;text-align:center;}
-  @keyframes pulse{from{transform:translate(-50%,-50%) scale(1);}to{transform:translate(-50%,-50%) scale(1.2);}}
   .confetti{position:absolute;width:10px;height:10px;border-radius:50%;opacity:.9;top:-10px;animation:fall linear forwards;}
+  @keyframes pulse{from{transform:translate(-50%,-50%) scale(1);}to{transform:translate(-50%,-50%) scale(1.2);}}
   @keyframes fall{0%{transform:translateY(0) rotate(0deg);opacity:1;}100%{transform:translateY(110vh) rotate(360deg);opacity:0;}}
 </style>
 </head>
@@ -43,8 +48,8 @@
   <ul style="text-align:left;font-size:15px;">
     <li>Round 1: Choose the correct logo (10 questions).</li>
     <li>Round 2: Type the brand name (15 questions).</li>
-    <li>Enter your team name before answering.</li>
-    <li>Teams scoring ≥7 in Round 1 qualify for Round 2.</li>
+    <li>Enter team name before answering.</li>
+    <li>Top N teams from Round 1 qualify for Round 2.</li>
   </ul>
   <button id="startRound1">Start Round 1</button>
 </div>
@@ -58,16 +63,16 @@
   <input id="teamName1" placeholder="Enter Team Name" />
   <div id="options1" class="d-flex justify-content-around flex-wrap mt-3"></div>
   <div id="message1" class="message"></div>
-  <button id="nextBtn1" style="display:none;">Nex➡️</button>
+  <button id="nextBtn1" style="display:none;">Next ➡</button>
 </div>
 
 <div id="leaderboard1" class="card" style="display:none;">
   <h2>🏁 Round 1 Leaderboard</h2>
   <table class="table table-striped" id="table1">
-    <thead><tr><th>Rank</th><th>Team</th><th>Score</th><th>Status</th></tr></thead>
+    <thead><tr><th>Rank</th><th>Team</th><th>Score</th></tr></thead>
     <tbody></tbody>
   </table>
-  <button id="downloadR1">⬇️ Download Round 1 Results</button>
+  <button id="downloadR1">⬇ Download Round 1 Results</button>
   <button id="startRound2">Proceed to Round 2</button>
 </div>
 
@@ -82,7 +87,7 @@
   <input id="answer2" placeholder="Type your answer" /><br>
   <button id="submit2">Submit</button>
   <div id="message2" class="message"></div>
-  <button id="nextBtn2" style="display:none;">Next ➡️</button>
+  <button id="nextBtn2" style="display:none;">Next ➡</button>
 </div>
 
 <div id="leaderboard2" class="card" style="display:none;">
@@ -91,56 +96,71 @@
     <thead><tr><th>Rank</th><th>Team</th><th>Score</th></tr></thead>
     <tbody></tbody>
   </table>
-  <button id="downloadR2">⬇️ Download Round 2 Results</button>
+  <button id="downloadR2">⬇ Download Round 2 Results</button>
 </div>
 
+<!-- Celebration Overlay -->
 <div id="celebrationOverlay">
   <div class="celebrationText"></div>
 </div>
 
 <script>
+// ---------------------- WELCOME SCREEN ----------------------
+document.getElementById("enterBtn").onclick = () => {
+  document.getElementById("welcomeScreen").classList.add("fadeOut");
+  setTimeout(() => {
+    document.getElementById("welcomeScreen").style.display = "none";
+    document.getElementById("instructionsScreen").style.display = "block";
+    document.getElementById("instructionsScreen").classList.add("fadeIn");
+  }, 1000);
+};
+
 // ---------------------- ROUND 1 DATA ----------------------
 const q1 = [
-  { A: "round1-batch2-images\\adidas1.png", B: "round1-batch2-images\\adidas2.png", correct: "A" },
-  { A: "round1-batch2-images\\chrome2.png", B: "round1-batch2-images\\chrome1.png", correct: "B" },
-  { A: "round1-batch2-images\\drive1.png", B: "round1-batch2-images\\drive2.png", correct: "A" },
-  { A: "round1-batch2-images\\ford2.png", B: "round1-batch2-images\\ford1.png", correct: "A" },
-  { A: "round1-batch2-images\\intel2.png", B: "round1-batch2-images\\intel1.png", correct: "B" },
-  { A: "round1-batch2-images\\java1.png", B: "round1-batch2-images\\java2.png", correct: "B" },
-  { A: "round1-batch2-images\\mc1.png", B: "round1-batch2-images\\mc2.png", correct: "A" },
-  { A: "round1-batch2-images\\paypal2.png", B: "round1-batch2-images\\paypal1.png", correct: "A" },
-  { A: "round1-batch2-images\\shell1.png", B: "round1-batch2-images\\shell2.png", correct: "B" },
-  { A: "round1-batch2-images\\tesla1.png", B: "round1-batch2-images\\tesla2.png", correct: "A" }
+  { A: "round1-batch2-images/adidas1.png", B: "round1-batch2-images/adidas2.png", correct: "B" },
+  { A: "round1-batch2-images/chrome2.png", B: "round1-batch2-images/chrome1.png", correct: "A" },
+  { A: "round1-batch2-images/drive2.png", B: "round1-batch2-images/drive1.png", correct: "B" },
+  { A: "round1-batch2-images/ford2.png", B: "round1-batch2-images/ford1.png", correct: "A" },
+  { A: "round1-batch2-images/intel2.png", B: "round1-batch2-images/intel1.png", correct: "B" },
+  { A: "round1-batch2-images/java1.png", B: "round1-batch2-images/java2.png", correct: "B" },
+  { A: "round1-batch2-images/mc1.png", B: "round1-batch2-images/mc2.png", correct: "A" },
+  { A: "round1-batch2-images/paypal1.png", B: "round1-batch2-images/paypal2.png", correct: "B" },
+  { A: "round1-batch2-images/shell1.png", B: "round1-batch2-images/shell2.png", correct: "A" },
+  { A: "round1-batch2-images/tesla1.png", B: "round1-batch2-images/tesla2.png", correct: "A" }
 ];
 
 // ---------------------- ROUND 2 DATA ----------------------
 const q2 = [
-  { img: "round2-batch2-images\\img1.png", ans: "master card" },
-  { img: "round2-batch2-images\\img2.png", ans: "skype" },
-  { img: "round2-batch2-images\\img3.png", ans: "ubuntu" },
-  { img: "round2-batch2-images\\img4.png", ans: "firefox" },
-  { img: "round2-batch2-images\\img5.png", ans: "bank of baroda" },
-  { img: "round2-batch2-images\\img6.png", ans: "hdfc bank" },
-  { img: "round2-batch2-images\\img7.png", ans: "fevicol" },
-  { img: "round2-batch2-images\\img8.png", ans: "mahendra" },
-  { img: "round2-batch2-images\\img9.png", ans: "sbi" },
-  { img: "round2-batch2-images\\img10.png", ans: "aadhar" },
-  { img: "round2-batch2-images\\img11.png", ans: "xbox" },
-  { img: "round2-batch2-images\\img12.png", ans: "under armour" },
-  { img: "round2-batch2-images\\img13.png", ans: "toco bell" },
-  { img: "round2-batch2-images\\img14.png", ans: "sound cloud" },
-  { img: "round2-batch2-images\\img15.png", ans: "tinder" }
+  { img: "round2-batch2-images/img1.png", ans: "master card" },
+  { img: "round2-batch2-images/img2.png", ans: "skype" },
+  { img: "round2-batch2-images/img3.png", ans: "ubuntu" },
+  { img: "round2-batch2-images/img4.png", ans: "firefox" },
+  { img: "round2-batch2-images/img5.png", ans: "walmart" },
+  { img: "round2-batch2-images/img6.png", ans: "vimeo" },
+  { img: "round2-batch2-images/img7.png", ans: "fevicol" },
+  { img: "round2-batch2-images/img8.png", ans: "mahendra" },
+  { img: "round2-batch2-images/img9.png", ans: "hilton" },
+  { img: "round2-batch2-images/img10.png", ans: "aadhar" },
+  { img: "round2-batch2-images/img11.png", ans: "xbox" },
+  { img: "round2-batch2-images/img12.png", ans: "under armour" },
+  { img: "round2-batch2-images/img13.png", ans: "toco bell" },
+  { img: "round2-batch2-images/img14.png", ans: "sound cloud" },
+  { img: "round2-batch2-images/img15.png", ans: "tinder" }
 ];
 
 // ---------------------- ROUND 1 ----------------------
 let i1=0, timer1, teamScores1={};
 
+document.getElementById("startRound1").onclick = () => {
+  document.getElementById("instructionsScreen").style.display="none";
+  document.getElementById("gameArea1").style.display="block";
+  nextQ1();
+};
+
 function nextQ1(){
   if(i1>=q1.length) return endR1();
   const q=q1[i1];
   document.getElementById("round1Num").textContent=i1+1;
-
-  // Fixed order for Round 1 options
   document.getElementById("options1").innerHTML = `
     <div>
       <img src='${q.A}' class='preview'><br>
@@ -149,9 +169,7 @@ function nextQ1(){
     <div>
       <img src='${q.B}' class='preview'><br>
       <button onclick='check1("B")'>Option B</button>
-    </div>
-  `;
-
+    </div>`;
   document.getElementById("message1").textContent="";
   document.getElementById("nextBtn1").style.display="none";
   startTimer1();
@@ -189,16 +207,20 @@ function endR1(){
   tbody.innerHTML="";
   const allTeams=Object.entries(teamScores1).sort((a,b)=>b[1]-a[1]);
   allTeams.forEach(([team,score],i)=>{
-    const status = score>=7 ? "✅ QUALIFIED" : "❌ NOT QUALIFIED";
-    tbody.innerHTML += `<tr><td>${i+1}</td><td>${team}</td><td>${score}</td><td>${status}</td></tr>`;
+    tbody.innerHTML+=`<tr><td>${i+1}</td><td>${team}</td><td>${score}</td></tr>`;
   });
   document.getElementById("gameArea1").style.display="none";
   document.getElementById("leaderboard1").style.display="block";
-  if(allTeams.length>0 && allTeams[0][1]>=7) showCelebration(`${allTeams[0][0]} QUALIFIED TO ROUND 2! 🎉`);
 }
 
 // ---------------------- ROUND 2 ----------------------
 let i2=0, timer2, teamScores2={};
+
+document.getElementById("startRound2").onclick=()=>{
+  document.getElementById("leaderboard1").style.display="none";
+  document.getElementById("gameArea2").style.display="block";
+  nextQ2();
+};
 
 function nextQ2(){
   if(i2>=q2.length) return endR2();
@@ -239,76 +261,47 @@ document.getElementById("submit2").onclick=()=>{
 
 document.getElementById("nextBtn2").onclick=()=>{i2++; nextQ2();};
 
+// ---------------------- ROUND 2 END ----------------------
 function endR2(){
   clearInterval(timer2);
   const tbody=document.querySelector("#table2 tbody");
   tbody.innerHTML="";
-  const sorted=Object.entries(teamScores2).sort((a,b)=>b[1]-a[1]);
-  sorted.forEach(([t,s],i)=>tbody.innerHTML+=`<tr><td>${i+1}</td><td>${t}</td><td>${s}</td></tr>`);
+  const sortedAll=Object.entries(teamScores2).sort((a,b)=>b[1]-a[1]);
+  sortedAll.forEach(([t,s],i)=>{
+    const isWinner = s > 0 && i===0;
+    tbody.innerHTML+=`<tr class='${isWinner?"winner":""}'><td>${i+1}</td><td>${t}</td><td>${s}</td></tr>`;
+  });
   document.getElementById("gameArea2").style.display="none";
   document.getElementById("leaderboard2").style.display="block";
-  if(sorted.length>0) showCelebration(`🏆 CONGRATULATIONS ${sorted[0][0]} ARE THE WINNERS! 🏆`);
+
+  // Show celebration overlay instead of alert
+  const winners = sortedAll.filter(([t,s])=>s>0);
+  if(winners.length>0){
+    const topTeam = winners[0];
+    showCelebration(`🎉 CONGRATULATIONS ${topTeam[0]} ARE THE WINNERS! 🏆`);
+  }
 }
 
-// ---------------------- CSV DOWNLOAD ----------------------
-function downloadCSV(data,filename){
-  const blob=new Blob([data],{type:"text/csv"});
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);
-  a.download=filename;a.click();
-}
-
-document.getElementById("downloadR1").onclick=()=>{
-  const csv="Team,Score,Status\n"+Object.entries(teamScores1)
-    .map(([t,s])=>`${t},${s},${s>=7?"QUALIFIED":"NOT QUALIFIED"}`).join("\n");
-  downloadCSV(csv,"Round1_Results.csv");
-};
-
-document.getElementById("downloadR2").onclick=()=>{
-  const csv="Rank,Team,Score\n"+Object.entries(teamScores2)
-    .sort((a,b)=>b[1]-a[1])
-    .map(([t,s],i)=>`${i+1},${t},${s}`).join("\n");
-  downloadCSV(csv,"Round2_Results.csv");
-};
-
-// ---------------------- CELEBRATION ----------------------
-function showCelebration(msg){
+// ---------------------- Celebration Overlay ----------------------
+function showCelebration(message){
   const overlay=document.getElementById("celebrationOverlay");
-  overlay.querySelector(".celebrationText").textContent=msg;
   overlay.style.display="block";
+  overlay.querySelector(".celebrationText").textContent=message;
+
+  // Add confetti
   for(let i=0;i<100;i++){
     const conf=document.createElement("div");
     conf.className="confetti";
+    conf.style.width=conf.style.height=(5+Math.random()*10)+"px";
     conf.style.left=Math.random()*100+"vw";
     conf.style.backgroundColor=`hsl(${Math.random()*360},100%,50%)`;
-    conf.style.width=conf.style.height=(5+Math.random()*10)+"px";
-    conf.style.animationDuration=(2+Math.random()*3)+"s";
+    conf.style.animationDuration=`${2+Math.random()*3}s`;
     overlay.appendChild(conf);
     conf.addEventListener("animationend",()=>conf.remove());
   }
-  setTimeout(()=>overlay.style.display="none",5000);
+
+  setTimeout(()=>{overlay.style.display="none";overlay.querySelectorAll(".confetti").forEach(c=>c.remove());},5000);
 }
-
-// ---------------------- NAVIGATION ----------------------
-document.getElementById("enterBtn").onclick=()=>{
-  document.getElementById("welcomeScreen").classList.add("fadeOut");
-  setTimeout(()=>{
-    document.getElementById("welcomeScreen").style.display="none";
-    document.getElementById("instructionsScreen").style.display="block";
-  },1000);
-};
-
-document.getElementById("startRound1").onclick=()=>{
-  document.getElementById("instructionsScreen").style.display="none";
-  document.getElementById("gameArea1").style.display="block";
-  i1=0; nextQ1();
-};
-
-document.getElementById("startRound2").onclick=()=>{
-  document.getElementById("leaderboard1").style.display="none";
-  document.getElementById("gameArea2").style.display="block";
-  i2=0; nextQ2();
-};
 </script>
 </body>
 </html>
